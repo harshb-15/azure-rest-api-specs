@@ -6895,7 +6895,8 @@
       "enum": [
         "UserSelectedExclusion",
         "FailedOverResource",
-        "UnsupportedResource"
+        "UnsupportedResource",
+        "NotRequiredByGoal"
       ],
       "x-ms-enum": {
         "name": "ExclusionReason",
@@ -6915,6 +6916,11 @@
             "name": "UnsupportedResource",
             "value": "UnsupportedResource",
             "description": "The resource is unsupported and excluded."
+          },
+          {
+            "name": "NotRequiredByGoal",
+            "value": "NotRequiredByGoal",
+            "description": "The resource is excluded because the goal assignment does not require this form of resiliency."
           }
         ]
       }
@@ -7292,6 +7298,14 @@
           "type": "boolean",
           "description": "Whether zonal resiliency is required for this goal assignment."
         },
+        "requireRegionalResiliency": {
+          "type": "boolean",
+          "description": "Whether regional resiliency is required for this goal assignment."
+        },
+        "regionalObjectives": {
+          "$ref": "#/definitions/RegionalObjectives",
+          "description": "Recovery objectives targeted for regional resiliency."
+        },
         "serviceLevelResources": {
           "type": "array",
           "description": "List of service level resources.",
@@ -7322,6 +7336,14 @@
         "requireZonalResiliency": {
           "type": "boolean",
           "description": "Whether zonal resiliency is required for this goal assignment."
+        },
+        "requireRegionalResiliency": {
+          "type": "boolean",
+          "description": "Whether regional resiliency is required for this goal assignment."
+        },
+        "regionalObjectives": {
+          "$ref": "#/definitions/RegionalObjectivesUpdate",
+          "description": "Recovery objectives targeted for regional resiliency."
         },
         "serviceLevelResources": {
           "type": "array",
@@ -7414,6 +7436,10 @@
         "zonalResiliency": {
           "$ref": "#/definitions/ResiliencyProperties",
           "description": "Zonal resiliency posture (participation, attestation, exclusion reason, and user confirmations) for the Arm resource."
+        },
+        "regionalResiliency": {
+          "$ref": "#/definitions/ResiliencyProperties",
+          "description": "Regional resiliency posture (participation, attestation, exclusion reason, and user confirmations) for the Arm resource."
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -9865,6 +9891,38 @@
         }
       ],
       "x-ms-discriminator-value": "Regional"
+    },
+    "RegionalObjectives": {
+      "type": "object",
+      "description": "Recovery objectives targeted by a goal assignment for regional resiliency.",
+      "properties": {
+        "recoveryPointObjective": {
+          "$ref": "#/definitions/IsoDuration",
+          "description": "Target regional recovery point objective. eg, PT15M for 15 minutes."
+        },
+        "recoveryTimeObjective": {
+          "$ref": "#/definitions/IsoDuration",
+          "description": "Target regional recovery time objective. eg, PT1H for 1 hour."
+        }
+      },
+      "required": [
+        "recoveryPointObjective",
+        "recoveryTimeObjective"
+      ]
+    },
+    "RegionalObjectivesUpdate": {
+      "type": "object",
+      "description": "Recovery objectives targeted by a goal assignment for regional resiliency.",
+      "properties": {
+        "recoveryPointObjective": {
+          "$ref": "#/definitions/IsoDuration",
+          "description": "Target regional recovery point objective. eg, PT15M for 15 minutes."
+        },
+        "recoveryTimeObjective": {
+          "$ref": "#/definitions/IsoDuration",
+          "description": "Target regional recovery time objective. eg, PT1H for 1 hour."
+        }
+      }
     },
     "RelativeResourceCompositionState": {
       "type": "string",

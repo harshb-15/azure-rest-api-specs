@@ -73,6 +73,10 @@ union ExclusionReason {
 
   @doc("The resource is unsupported and excluded.")
   UnsupportedResource: "UnsupportedResource",
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("The resource is excluded because the goal assignment does not require this form of resiliency.")
+  NotRequiredByGoal: "NotRequiredByGoal",
 }
 
 @added(Versions.v2026_03_01_preview)
