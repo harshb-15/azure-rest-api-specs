@@ -29,10 +29,10 @@ model ServiceLevelResource {
 @doc("Recovery objectives targeted by a goal assignment for regional resiliency.")
 model RegionalObjectives {
   @doc("Target regional recovery point objective. eg, PT15M for 15 minutes.")
-  recoveryPointObjective: IsoDuration;
+  targetRecoveryPointObjective: IsoDuration;
 
   @doc("Target regional recovery time objective. eg, PT1H for 1 hour.")
-  recoveryTimeObjective: IsoDuration;
+  targetRecoveryTimeObjective: IsoDuration;
 }
 
 // Define the main model

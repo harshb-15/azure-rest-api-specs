@@ -9890,29 +9890,29 @@
       "type": "object",
       "description": "Recovery objectives targeted by a goal assignment for regional resiliency.",
       "properties": {
-        "recoveryPointObjective": {
+        "targetRecoveryPointObjective": {
           "$ref": "#/definitions/IsoDuration",
           "description": "Target regional recovery point objective. eg, PT15M for 15 minutes."
         },
-        "recoveryTimeObjective": {
+        "targetRecoveryTimeObjective": {
           "$ref": "#/definitions/IsoDuration",
           "description": "Target regional recovery time objective. eg, PT1H for 1 hour."
         }
       },
       "required": [
-        "recoveryPointObjective",
-        "recoveryTimeObjective"
+        "targetRecoveryPointObjective",
+        "targetRecoveryTimeObjective"
       ]
     },
     "RegionalObjectivesUpdate": {
       "type": "object",
       "description": "Recovery objectives targeted by a goal assignment for regional resiliency.",
       "properties": {
-        "recoveryPointObjective": {
+        "targetRecoveryPointObjective": {
           "$ref": "#/definitions/IsoDuration",
           "description": "Target regional recovery point objective. eg, PT15M for 15 minutes."
         },
-        "recoveryTimeObjective": {
+        "targetRecoveryTimeObjective": {
           "$ref": "#/definitions/IsoDuration",
           "description": "Target regional recovery time objective. eg, PT1H for 1 hour."
         }
