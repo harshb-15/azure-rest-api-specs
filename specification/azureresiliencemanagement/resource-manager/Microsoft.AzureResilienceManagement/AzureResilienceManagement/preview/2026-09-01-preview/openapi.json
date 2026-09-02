@@ -6895,8 +6895,7 @@
       "enum": [
         "UserSelectedExclusion",
         "FailedOverResource",
-        "UnsupportedResource",
-        "NotRequiredByGoal"
+        "UnsupportedResource"
       ],
       "x-ms-enum": {
         "name": "ExclusionReason",
@@ -6916,11 +6915,6 @@
             "name": "UnsupportedResource",
             "value": "UnsupportedResource",
             "description": "The resource is unsupported and excluded."
-          },
-          {
-            "name": "NotRequiredByGoal",
-            "value": "NotRequiredByGoal",
-            "description": "The resource is excluded because the goal assignment does not require this form of resiliency."
           }
         ]
       }
