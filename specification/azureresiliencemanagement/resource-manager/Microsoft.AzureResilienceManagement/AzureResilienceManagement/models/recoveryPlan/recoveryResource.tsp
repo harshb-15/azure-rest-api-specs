@@ -16,6 +16,20 @@ using TypeSpec.Versioning;
 @armProviderNamespace("Microsoft.AzureResilienceManagement")
 namespace Microsoft.AzureResilienceManagement;
 
+@added(Versions.v2026_09_01_preview)
+@doc("Reason why a recovery resource cannot be included in a recovery plan.")
+#suppress "@azure-tools/typespec-azure-core/no-enum" "The service contract defines a closed set of inclusion-disabled reasons."
+enum ResourceInclusionDisabledReason {
+  @doc("The resource is highly available and does not require recovery-plan inclusion.")
+  ResourceHighlyAvailable,
+
+  @doc("The resource is active in multiple regions.")
+  ResourceActiveInMultipleRegions,
+
+  @doc("Customer-managed failover is not supported for the resource.")
+  CustomerManagedFailoverNotSupported,
+}
+
 // Define the main model
 @doc("Definition of recovery orchestration resource property associated with recovery orchestration plan.")
 model RecoveryResourceProperties {
@@ -42,6 +56,14 @@ model RecoveryResourceProperties {
 
   @doc("A state that indicates the resource status with respect to the recovery orchestration plan.")
   inclusionState?: ResourceInclusionState;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("Indicates whether inclusion of the resource in a recovery plan is disabled.")
+  isResourceInclusionDisabled?: boolean;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("Reasons why inclusion of the resource in a recovery plan is disabled.")
+  reasonsForInclusionDisabled?: ResourceInclusionDisabledReason[];
 
   @doc("Indicating if resource needs user attention and action, details will be found in attentionReasons")
   @visibility(Lifecycle.Read)

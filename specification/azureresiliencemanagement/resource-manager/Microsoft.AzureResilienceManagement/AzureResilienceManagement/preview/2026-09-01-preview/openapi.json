@@ -9748,6 +9748,17 @@
           "$ref": "#/definitions/ResourceInclusionState",
           "description": "A state that indicates the resource status with respect to the recovery orchestration plan."
         },
+        "isResourceInclusionDisabled": {
+          "type": "boolean",
+          "description": "Indicates whether inclusion of the resource in a recovery plan is disabled."
+        },
+        "reasonsForInclusionDisabled": {
+          "type": "array",
+          "description": "Reasons why inclusion of the resource in a recovery plan is disabled.",
+          "items": {
+            "$ref": "#/definitions/ResourceInclusionDisabledReason"
+          }
+        },
         "needsAttention": {
           "type": "boolean",
           "description": "Indicating if resource needs user attention and action, details will be found in attentionReasons",
@@ -9886,6 +9897,36 @@
             "name": "OutOfSync",
             "value": "OutOfSync",
             "description": "Resources out of sync."
+          }
+        ]
+      }
+    },
+    "ReplicationMode": {
+      "type": "string",
+      "description": "Replication mode configured for a protected resource.",
+      "enum": [
+        "None",
+        "ActiveActive",
+        "ActivePassive"
+      ],
+      "x-ms-enum": {
+        "name": "ReplicationMode",
+        "modelAsString": false,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No replication mode is configured for the protected resource."
+          },
+          {
+            "name": "ActiveActive",
+            "value": "ActiveActive",
+            "description": "The resource is active in multiple locations at the same time."
+          },
+          {
+            "name": "ActivePassive",
+            "value": "ActivePassive",
+            "description": "The resource has one active location and one or more passive recovery locations."
           }
         ]
       }
@@ -10068,6 +10109,38 @@
           ]
         }
       }
+    },
+    "ResourceAzureTemplateProtectionSetting": {
+      "type": "object",
+      "description": "Definition of recovery orchestration resource protection using an Azure Resource Manager template.",
+      "properties": {
+        "templateSpecVersionId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure resource ID of the Template Spec version to deploy.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Resources/templateSpecs/versions"
+              }
+            ]
+          }
+        },
+        "deploymentScope": {
+          "$ref": "#/definitions/TemplateDeploymentScope",
+          "description": "The target deployment scope for the template."
+        }
+      },
+      "required": [
+        "templateSpecVersionId",
+        "deploymentScope"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ResourceBaseProtectionSolutionSetting"
+        }
+      ],
+      "x-ms-discriminator-value": "AzureTemplate"
     },
     "ResourceBaseProtectionSolutionSetting": {
       "type": "object",
@@ -10257,6 +10330,60 @@
         ]
       }
     },
+    "ResourceGroupDeploymentScope": {
+      "type": "object",
+      "description": "Resource group deployment scope for an Azure Resource Manager template.",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "The subscription identifier containing the target resource group."
+        },
+        "resourceGroupName": {
+          "type": "string",
+          "description": "The name of the target resource group."
+        }
+      },
+      "required": [
+        "subscriptionId",
+        "resourceGroupName"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/TemplateDeploymentScope"
+        }
+      ],
+      "x-ms-discriminator-value": "ResourceGroup"
+    },
+    "ResourceInclusionDisabledReason": {
+      "type": "string",
+      "description": "Reason why a recovery resource cannot be included in a recovery plan.",
+      "enum": [
+        "ResourceHighlyAvailable",
+        "ResourceActiveInMultipleRegions",
+        "CustomerManagedFailoverNotSupported"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceInclusionDisabledReason",
+        "modelAsString": false,
+        "values": [
+          {
+            "name": "ResourceHighlyAvailable",
+            "value": "ResourceHighlyAvailable",
+            "description": "The resource is highly available and does not require recovery-plan inclusion."
+          },
+          {
+            "name": "ResourceActiveInMultipleRegions",
+            "value": "ResourceActiveInMultipleRegions",
+            "description": "The resource is active in multiple regions."
+          },
+          {
+            "name": "CustomerManagedFailoverNotSupported",
+            "value": "CustomerManagedFailoverNotSupported",
+            "description": "Customer-managed failover is not supported for the resource."
+          }
+        ]
+      }
+    },
     "ResourceInclusionState": {
       "type": "string",
       "description": "A state type that indicates inclusion of the resource with respect to the resiliency support.",
@@ -10333,6 +10460,10 @@
           "$ref": "#/definitions/ResourceProtectionSolutionType",
           "description": "A setting that indicates the resource protected with which recovery solution.",
           "readOnly": true
+        },
+        "replicationMode": {
+          "$ref": "#/definitions/ReplicationMode",
+          "description": "Replication mode configured for the protected resource."
         },
         "protectionStatus": {
           "$ref": "#/definitions/ResourceProtectionStatus",
@@ -10424,7 +10555,12 @@
         "AzureNative",
         "AzureSiteRecovery",
         "CrossZoneVMRecovery",
-        "CustomRunbook"
+        "CustomRunbook",
+        "AzureStorageAccount",
+        "AzureServiceBus",
+        "AzureNetAppFiles",
+        "AzureCosmosDb",
+        "AzureTemplate"
       ],
       "x-ms-enum": {
         "name": "ResourceProtectionSolutionType",
@@ -10454,6 +10590,31 @@
             "name": "CustomRunbook",
             "value": "CustomRunbook",
             "description": "Resource is not protected with native solution and using custom runbook automation scripts for recovery verbs."
+          },
+          {
+            "name": "AzureStorageAccount",
+            "value": "AzureStorageAccount",
+            "description": "Resource is protected with Azure Storage account customer-managed failover."
+          },
+          {
+            "name": "AzureServiceBus",
+            "value": "AzureServiceBus",
+            "description": "Resource is protected with Azure Service Bus geo-replication, where a premium namespace replicates data to a secondary region and recovery promotes that secondary in place."
+          },
+          {
+            "name": "AzureNetAppFiles",
+            "value": "AzureNetAppFiles",
+            "description": "Resource is protected with Azure NetApp Files cross-region replication, where recovery fails over to the destination volume."
+          },
+          {
+            "name": "AzureCosmosDb",
+            "value": "AzureCosmosDb",
+            "description": "Resource is protected with Azure Cosmos DB multiregion replication using customer-managed failover, where recovery promotes a secondary region to the write region."
+          },
+          {
+            "name": "AzureTemplate",
+            "value": "AzureTemplate",
+            "description": "Resource recovery is orchestrated by deploying an Azure Resource Manager template."
           }
         ]
       }
@@ -11015,6 +11176,20 @@
       },
       "required": [
         "initialConfig"
+      ]
+    },
+    "TemplateDeploymentScope": {
+      "type": "object",
+      "description": "Deployment scope for an Azure Resource Manager template.",
+      "properties": {
+        "scopeType": {
+          "type": "string",
+          "description": "Discriminator property for TemplateDeploymentScope."
+        }
+      },
+      "discriminator": "scopeType",
+      "required": [
+        "scopeType"
       ]
     },
     "TestFailoverCleanupRequest": {

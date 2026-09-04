@@ -58,11 +58,29 @@ union TestFailoverState {
   string,
 }
 
+@added(Versions.v2026_09_01_preview)
+@doc("Replication mode configured for a protected resource.")
+#suppress "@azure-tools/typespec-azure-core/no-enum" "The service contract defines a closed set of replication modes."
+enum ReplicationMode {
+  @doc("No replication mode is configured for the protected resource.")
+  None,
+
+  @doc("The resource is active in multiple locations at the same time.")
+  ActiveActive,
+
+  @doc("The resource has one active location and one or more passive recovery locations.")
+  ActivePassive,
+}
+
 @doc("Definition of recovery resource resource protection solution settings.")
 model ResourceProtectionSolutionSettings {
   @doc("A setting that indicates the resource protected with which recovery solution.")
   @visibility(Lifecycle.Read)
   protectionSolutionType?: ResourceProtectionSolutionType;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("Replication mode configured for the protected resource.")
+  replicationMode?: ReplicationMode;
 
   @doc("A status that indicates the protection status of a resource with an Azure solution for regional or zonal recovery.")
   @visibility(Lifecycle.Read)
@@ -120,6 +138,44 @@ model ResourceProtectionSolutionSettings {
 model ResourceBaseProtectionSolutionSetting {
   @doc("A setting that indicates the resource protected with which recovery solution.")
   protectionSolutionType: ResourceProtectionSolutionType;
+}
+
+@added(Versions.v2026_09_01_preview)
+@doc("Deployment scope for an Azure Resource Manager template.")
+@discriminator("scopeType")
+#suppress "@azure-tools/typespec-azure-core/no-string-discriminator" "The deployment scope is a versioned discriminated hierarchy with one currently supported variant."
+#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "The base model intentionally carries only the discriminator contract for deployment-scope variants."
+model TemplateDeploymentScope {}
+
+@added(Versions.v2026_09_01_preview)
+@doc("Resource group deployment scope for an Azure Resource Manager template.")
+model ResourceGroupDeploymentScope extends TemplateDeploymentScope {
+  @doc("The deployment scope type.")
+  scopeType: "ResourceGroup";
+
+  @doc("The subscription identifier containing the target resource group.")
+  subscriptionId: string;
+
+  @doc("The name of the target resource group.")
+  resourceGroupName: string;
+}
+
+@added(Versions.v2026_09_01_preview)
+@doc("Definition of recovery orchestration resource protection using an Azure Resource Manager template.")
+model ResourceAzureTemplateProtectionSetting
+  extends ResourceBaseProtectionSolutionSetting {
+  @doc("A setting that indicates Azure Resource Manager template-based recovery.")
+  protectionSolutionType: "AzureTemplate";
+
+  @doc("The Azure resource ID of the Template Spec version to deploy.")
+  templateSpecVersionId: armResourceIdentifier<[
+    {
+      type: "Microsoft.Resources/templateSpecs/versions";
+    }
+  ]>;
+
+  @doc("The target deployment scope for the template.")
+  deploymentScope: TemplateDeploymentScope;
 }
 
 @doc("Definition of recovery orchestration resource native protection solution setting with recovery orchestration plan.")
