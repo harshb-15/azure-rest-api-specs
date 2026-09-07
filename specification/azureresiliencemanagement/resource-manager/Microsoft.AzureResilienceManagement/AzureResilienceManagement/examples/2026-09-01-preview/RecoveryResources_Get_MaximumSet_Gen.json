@@ -17,10 +17,8 @@
           "selectedProtectionSolutionSetting": {
             "protectionSolutionType": "AzureTemplate",
             "templateSpecVersionId": "/subscriptions/ad261018-e582-488a-815d-c2ebe28ca544/resourceGroups/templateSpecs-rg/providers/Microsoft.Resources/templateSpecs/regionalRecovery/versions/1.0",
-            "deploymentScope": {
-              "scopeType": "ResourceGroup",
-              "resourceGroupId": "/subscriptions/ad261018-e582-488a-815d-c2ebe28ca544/resourceGroups/recovery-target-rg"
-            }
+            "deploymentScope": "/subscriptions/ad261018-e582-488a-815d-c2ebe28ca544",
+            "deploymentLocation": "eastus2"
           },
           "recoveryGroupId": "11111111-1111-1111-1111-123456789012",
           "associatedIdentity": {

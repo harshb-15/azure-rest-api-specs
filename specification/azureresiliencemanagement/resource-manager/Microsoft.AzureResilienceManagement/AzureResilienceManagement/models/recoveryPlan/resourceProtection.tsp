@@ -141,28 +141,6 @@ model ResourceBaseProtectionSolutionSetting {
 }
 
 @added(Versions.v2026_09_01_preview)
-@doc("Deployment scope for an Azure Resource Manager template.")
-@discriminator("scopeType")
-#suppress "@azure-tools/typespec-azure-core/no-string-discriminator" "The deployment scope is a versioned discriminated hierarchy with one currently supported variant."
-#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "The base model intentionally carries only the discriminator contract for deployment-scope variants."
-model TemplateDeploymentScope {}
-
-@added(Versions.v2026_09_01_preview)
-@doc("Resource group deployment scope for an Azure Resource Manager template.")
-model ResourceGroupDeploymentScope extends TemplateDeploymentScope {
-  @doc("The deployment scope type.")
-  scopeType: "ResourceGroup";
-
-  @doc("The Azure resource ID of the target resource group.")
-  resourceGroupId: armResourceIdentifier<[
-    {
-      type: "Microsoft.Resources/resourceGroups";
-      scopes: ["Subscription"];
-    }
-  ]>;
-}
-
-@added(Versions.v2026_09_01_preview)
 @doc("Definition of recovery orchestration resource protection using an Azure Resource Manager template.")
 model ResourceAzureTemplateProtectionSetting
   extends ResourceBaseProtectionSolutionSetting {
@@ -176,8 +154,24 @@ model ResourceAzureTemplateProtectionSetting
     }
   ]>;
 
-  @doc("The target deployment scope for the template.")
-  deploymentScope: TemplateDeploymentScope;
+  @doc("""
+    The Azure Resource Manager scope at which the recovery template is deployed. Must be the
+    subscription containing the protected resource, or a resource group within it; deployments
+    above subscription scope are not supported.
+    """)
+  deploymentScope: armResourceIdentifier<[
+    {
+      type: "Microsoft.Resources/subscriptions";
+      scopes: ["Tenant"];
+    },
+    {
+      type: "Microsoft.Resources/resourceGroups";
+      scopes: ["Subscription"];
+    }
+  ]>;
+
+  @doc("The location used to store deployment metadata. Required when deploymentScope is a subscription.")
+  deploymentLocation?: azureLocation;
 }
 
 @doc("Definition of recovery orchestration resource native protection solution setting with recovery orchestration plan.")

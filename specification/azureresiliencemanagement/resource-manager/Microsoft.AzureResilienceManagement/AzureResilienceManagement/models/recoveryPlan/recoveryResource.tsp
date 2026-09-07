@@ -26,8 +26,8 @@ enum ResourceInclusionDisabledReason {
   @doc("The resource uses active-active protection.")
   ResourceActiveActiveProtection,
 
-  @doc("Customer-managed failover is not supported for the resource.")
-  CustomerManagedFailoverNotSupported,
+  @doc("The resource uses platform-managed protection.")
+  PlatformManagedProtection,
 }
 
 // Define the main model

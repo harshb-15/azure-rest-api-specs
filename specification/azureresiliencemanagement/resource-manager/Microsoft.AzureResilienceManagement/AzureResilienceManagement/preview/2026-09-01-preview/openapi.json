@@ -5245,6 +5245,10 @@
         ]
       }
     },
+    "Azure.Core.azureLocation": {
+      "type": "string",
+      "description": "Represents an Azure geography region where supported resource providers live."
+    },
     "Azure.ResourceManager.ArmResponse<Azure.ResourceManager.CommonTypes.ErrorResponse>": {
       "type": "object",
       "description": "Azure operation completed successfully.",
@@ -10123,8 +10127,29 @@
           }
         },
         "deploymentScope": {
-          "$ref": "#/definitions/TemplateDeploymentScope",
-          "description": "The target deployment scope for the template."
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure Resource Manager scope at which the recovery template is deployed. Must be the\nsubscription containing the protected resource, or a resource group within it; deployments\nabove subscription scope are not supported.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Resources/subscriptions",
+                "scopes": [
+                  "Tenant"
+                ]
+              },
+              {
+                "type": "Microsoft.Resources/resourceGroups",
+                "scopes": [
+                  "Subscription"
+                ]
+              }
+            ]
+          }
+        },
+        "deploymentLocation": {
+          "$ref": "#/definitions/Azure.Core.azureLocation",
+          "description": "The location used to store deployment metadata. Required when deploymentScope is a subscription."
         }
       },
       "required": [
@@ -10326,43 +10351,13 @@
         ]
       }
     },
-    "ResourceGroupDeploymentScope": {
-      "type": "object",
-      "description": "Resource group deployment scope for an Azure Resource Manager template.",
-      "properties": {
-        "resourceGroupId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The Azure resource ID of the target resource group.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Resources/resourceGroups",
-                "scopes": [
-                  "Subscription"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "resourceGroupId"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/TemplateDeploymentScope"
-        }
-      ],
-      "x-ms-discriminator-value": "ResourceGroup"
-    },
     "ResourceInclusionDisabledReason": {
       "type": "string",
       "description": "Reason why a recovery resource cannot be included in a recovery plan.",
       "enum": [
         "ResourceHighlyAvailable",
         "ResourceActiveActiveProtection",
-        "CustomerManagedFailoverNotSupported"
+        "PlatformManagedProtection"
       ],
       "x-ms-enum": {
         "name": "ResourceInclusionDisabledReason",
@@ -10379,9 +10374,9 @@
             "description": "The resource uses active-active protection."
           },
           {
-            "name": "CustomerManagedFailoverNotSupported",
-            "value": "CustomerManagedFailoverNotSupported",
-            "description": "Customer-managed failover is not supported for the resource."
+            "name": "PlatformManagedProtection",
+            "value": "PlatformManagedProtection",
+            "description": "The resource uses platform-managed protection."
           }
         ]
       }
@@ -11178,20 +11173,6 @@
       },
       "required": [
         "initialConfig"
-      ]
-    },
-    "TemplateDeploymentScope": {
-      "type": "object",
-      "description": "Deployment scope for an Azure Resource Manager template.",
-      "properties": {
-        "scopeType": {
-          "type": "string",
-          "description": "Discriminator property for TemplateDeploymentScope."
-        }
-      },
-      "discriminator": "scopeType",
-      "required": [
-        "scopeType"
       ]
     },
     "TestFailoverCleanupRequest": {

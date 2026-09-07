@@ -95,11 +95,11 @@
               "protectionStatus": "Protected",
               "inclusionState": "NotIncluded",
               "inclusionDisabledReasons": [
-                "CustomerManagedFailoverNotSupported"
+                "PlatformManagedProtection"
               ],
               "needsAttention": true,
               "attentionReasons": [
-                "CustomerManagedFailoverNotSupported"
+                "PlatformManagedProtection"
               ],
               "recoveryGroupId": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
               "associatedIdentity": {
@@ -107,8 +107,8 @@
                 "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
               },
               "errorDetails": {
-                "code": "CustomerManagedFailoverNotSupported",
-                "message": "Customer-managed failover is not supported for this storage account.",
+                "code": "PlatformManagedProtection",
+                "message": "The storage account uses platform-managed protection.",
                 "target": "resourceId",
                 "details": [],
                 "additionalInfo": [
