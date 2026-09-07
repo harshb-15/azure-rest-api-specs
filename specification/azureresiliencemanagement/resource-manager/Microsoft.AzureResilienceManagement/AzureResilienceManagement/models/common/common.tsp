@@ -325,7 +325,7 @@ union ResourceProtectionSolutionType {
 
   @added(Versions.v2026_09_01_preview)
   @doc("Resource is protected with Azure Cosmos DB multiregion replication using customer-managed failover, where recovery promotes a secondary region to the write region.")
-  AzureCosmosDb: "AzureCosmosDb",
+  AzureCosmosDB: "AzureCosmosDB",
 
   @added(Versions.v2026_09_01_preview)
   @doc("Resource recovery is orchestrated by deploying an Azure Resource Manager template.")

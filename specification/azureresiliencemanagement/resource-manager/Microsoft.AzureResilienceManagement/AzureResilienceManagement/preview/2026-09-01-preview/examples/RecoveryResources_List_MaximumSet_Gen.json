@@ -44,7 +44,7 @@
               },
               "resourceProtectionSolutions": [
                 {
-                  "protectionSolutionType": "AzureCosmosDb",
+                  "protectionSolutionType": "AzureCosmosDB",
                   "replicationMode": "ActiveActive",
                   "protectionStatus": "Protected",
                   "resourceId": "/subscriptions/ad261018-e582-488a-815d-c2ebe28ca544/resourceGroups/cosmos-rg/providers/Microsoft.DocumentDB/databaseAccounts/cosmos-account-1",
@@ -70,7 +70,7 @@
                   ]
                 }
               ],
-              "selectedProtectionSolutionType": "AzureCosmosDb",
+              "selectedProtectionSolutionType": "AzureCosmosDB",
               "resourceLocation": "eastus2",
               "resourcePhysicalZones": [
                 "eastus2-az1"

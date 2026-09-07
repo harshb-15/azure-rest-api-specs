@@ -10559,7 +10559,7 @@
         "AzureStorageAccount",
         "AzureServiceBus",
         "AzureNetAppFiles",
-        "AzureCosmosDb",
+        "AzureCosmosDB",
         "AzureTemplate"
       ],
       "x-ms-enum": {
@@ -10607,8 +10607,8 @@
             "description": "Resource is protected with Azure NetApp Files cross-region replication, where recovery fails over to the destination volume."
           },
           {
-            "name": "AzureCosmosDb",
-            "value": "AzureCosmosDb",
+            "name": "AzureCosmosDB",
+            "value": "AzureCosmosDB",
             "description": "Resource is protected with Azure Cosmos DB multiregion replication using customer-managed failover, where recovery promotes a secondary region to the write region."
           },
           {
