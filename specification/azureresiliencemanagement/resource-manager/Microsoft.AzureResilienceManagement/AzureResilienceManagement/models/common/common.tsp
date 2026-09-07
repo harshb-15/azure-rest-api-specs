@@ -312,6 +312,10 @@ union ResourceProtectionSolutionType {
   CustomRunbook: "CustomRunbook",
 
   @added(Versions.v2026_09_01_preview)
+  @doc("Resource recovery is orchestrated by deploying an Azure Resource Manager template.")
+  AzureTemplate: "AzureTemplate",
+
+  @added(Versions.v2026_09_01_preview)
   @doc("Resource is protected with Azure Storage account customer-managed failover.")
   AzureStorageAccount: "AzureStorageAccount",
 
@@ -326,10 +330,6 @@ union ResourceProtectionSolutionType {
   @added(Versions.v2026_09_01_preview)
   @doc("Resource is protected with Azure Cosmos DB multiregion replication using customer-managed failover, where recovery promotes a secondary region to the write region.")
   AzureCosmosDB: "AzureCosmosDB",
-
-  @added(Versions.v2026_09_01_preview)
-  @doc("Resource recovery is orchestrated by deploying an Azure Resource Manager template.")
-  AzureTemplate: "AzureTemplate",
 
   string,
 }

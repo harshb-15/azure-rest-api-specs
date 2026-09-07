@@ -23,8 +23,8 @@ enum ResourceInclusionDisabledReason {
   @doc("The resource is highly available and does not require recovery-plan inclusion.")
   ResourceHighlyAvailable,
 
-  @doc("The resource is active in multiple regions.")
-  ResourceActiveInMultipleRegions,
+  @doc("The resource uses active-active protection.")
+  ResourceActiveActiveProtection,
 
   @doc("Customer-managed failover is not supported for the resource.")
   CustomerManagedFailoverNotSupported,
@@ -58,12 +58,8 @@ model RecoveryResourceProperties {
   inclusionState?: ResourceInclusionState;
 
   @added(Versions.v2026_09_01_preview)
-  @doc("Indicates whether inclusion of the resource in a recovery plan is disabled.")
-  isResourceInclusionDisabled?: boolean;
-
-  @added(Versions.v2026_09_01_preview)
   @doc("Reasons why inclusion of the resource in a recovery plan is disabled.")
-  reasonsForInclusionDisabled?: ResourceInclusionDisabledReason[];
+  inclusionDisabledReasons?: ResourceInclusionDisabledReason[];
 
   @doc("Indicating if resource needs user attention and action, details will be found in attentionReasons")
   @visibility(Lifecycle.Read)

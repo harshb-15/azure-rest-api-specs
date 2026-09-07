@@ -153,11 +153,13 @@ model ResourceGroupDeploymentScope extends TemplateDeploymentScope {
   @doc("The deployment scope type.")
   scopeType: "ResourceGroup";
 
-  @doc("The subscription identifier containing the target resource group.")
-  subscriptionId: string;
-
-  @doc("The name of the target resource group.")
-  resourceGroupName: string;
+  @doc("The Azure resource ID of the target resource group.")
+  resourceGroupId: armResourceIdentifier<[
+    {
+      type: "Microsoft.Resources/resourceGroups";
+      scopes: ["Subscription"];
+    }
+  ]>;
 }
 
 @added(Versions.v2026_09_01_preview)

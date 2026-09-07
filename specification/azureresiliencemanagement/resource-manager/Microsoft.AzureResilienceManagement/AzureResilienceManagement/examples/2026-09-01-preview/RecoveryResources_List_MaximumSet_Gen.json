@@ -17,13 +17,12 @@
               "recoveryResourceUniqueId": "11111111-1111-4111-8111-111111111111",
               "protectionStatus": "Protected",
               "inclusionState": "NotIncluded",
-              "isResourceInclusionDisabled": true,
-              "reasonsForInclusionDisabled": [
-                "ResourceActiveInMultipleRegions"
+              "inclusionDisabledReasons": [
+                "ResourceActiveActiveProtection"
               ],
               "needsAttention": true,
               "attentionReasons": [
-                "ResourceActiveInMultipleRegions"
+                "ResourceActiveActiveProtection"
               ],
               "recoveryGroupId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
               "associatedIdentity": {
@@ -31,7 +30,7 @@
                 "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
               },
               "errorDetails": {
-                "code": "ResourceActiveInMultipleRegions",
+                "code": "ResourceActiveActiveProtection",
                 "message": "The Cosmos DB account is active in multiple regions.",
                 "target": "resourceId",
                 "details": [],
@@ -95,8 +94,7 @@
               "recoveryResourceUniqueId": "22222222-2222-4222-8222-222222222222",
               "protectionStatus": "Protected",
               "inclusionState": "NotIncluded",
-              "isResourceInclusionDisabled": true,
-              "reasonsForInclusionDisabled": [
+              "inclusionDisabledReasons": [
                 "CustomerManagedFailoverNotSupported"
               ],
               "needsAttention": true,
@@ -171,8 +169,7 @@
               "recoveryResourceUniqueId": "33333333-3333-4333-8333-333333333333",
               "protectionStatus": "Protected",
               "inclusionState": "Included",
-              "isResourceInclusionDisabled": false,
-              "reasonsForInclusionDisabled": [],
+              "inclusionDisabledReasons": [],
               "needsAttention": false,
               "attentionReasons": [],
               "recoveryGroupId": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
@@ -240,8 +237,7 @@
               "recoveryResourceUniqueId": "44444444-4444-4444-8444-444444444444",
               "protectionStatus": "Protected",
               "inclusionState": "Included",
-              "isResourceInclusionDisabled": false,
-              "reasonsForInclusionDisabled": [],
+              "inclusionDisabledReasons": [],
               "needsAttention": false,
               "attentionReasons": [],
               "recoveryGroupId": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
