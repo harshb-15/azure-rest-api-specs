@@ -10177,6 +10177,16 @@
         "protectionSolutionType"
       ]
     },
+    "ResourceCosmosDBProtectionSetting": {
+      "type": "object",
+      "description": "Definition of recovery orchestration resource protection using Azure Cosmos DB.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ResourceBaseProtectionSolutionSetting"
+        }
+      ],
+      "x-ms-discriminator-value": "AzureCosmosDB"
+    },
     "ResourceCrossZoneVmRecoveryProtectionSetting": {
       "type": "object",
       "description": "Definition of recovery orchestration resource protection with cross-zone (zonally resilient) VM recovery.",
@@ -10356,8 +10366,7 @@
       "description": "Reason why a recovery resource cannot be included in a recovery plan.",
       "enum": [
         "ResourceHighlyAvailable",
-        "ResourceActiveActiveProtection",
-        "PlatformManagedProtection"
+        "ResourceActiveActiveProtection"
       ],
       "x-ms-enum": {
         "name": "ResourceInclusionDisabledReason",
@@ -10372,11 +10381,6 @@
             "name": "ResourceActiveActiveProtection",
             "value": "ResourceActiveActiveProtection",
             "description": "The resource uses active-active protection."
-          },
-          {
-            "name": "PlatformManagedProtection",
-            "value": "PlatformManagedProtection",
-            "description": "The resource uses platform-managed protection."
           }
         ]
       }
@@ -10448,6 +10452,16 @@
         }
       ],
       "x-ms-discriminator-value": "AzureNative"
+    },
+    "ResourceNetAppFilesProtectionSetting": {
+      "type": "object",
+      "description": "Definition of recovery orchestration resource protection using Azure NetApp Files.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ResourceBaseProtectionSolutionSetting"
+        }
+      ],
+      "x-ms-discriminator-value": "AzureNetAppFiles"
     },
     "ResourceProtectionSolutionSettings": {
       "type": "object",
@@ -10718,6 +10732,16 @@
         ]
       }
     },
+    "ResourceServiceBusProtectionSetting": {
+      "type": "object",
+      "description": "Definition of recovery orchestration resource protection using Azure Service Bus.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ResourceBaseProtectionSolutionSetting"
+        }
+      ],
+      "x-ms-discriminator-value": "AzureServiceBus"
+    },
     "ResourceSiteRecoveryProtectionSetting": {
       "type": "object",
       "description": "Definition of recovery orchestration resource protection with azure site recovery.",
@@ -10783,6 +10807,16 @@
           }
         }
       }
+    },
+    "ResourceStorageAccountProtectionSetting": {
+      "type": "object",
+      "description": "Definition of recovery orchestration resource protection using an Azure Storage account.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ResourceBaseProtectionSolutionSetting"
+        }
+      ],
+      "x-ms-discriminator-value": "AzureStorageAccount"
     },
     "ResourceTypeCategories": {
       "type": "string",

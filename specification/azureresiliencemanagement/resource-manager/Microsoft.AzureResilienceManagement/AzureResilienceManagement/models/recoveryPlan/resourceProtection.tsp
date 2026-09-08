@@ -174,6 +174,39 @@ model ResourceAzureTemplateProtectionSetting
   deploymentLocation?: azureLocation;
 }
 
+@added(Versions.v2026_09_01_preview)
+@doc("Definition of recovery orchestration resource protection using Azure Cosmos DB.")
+#suppress "@azure-tools/typespec-azure-core/casing-style" "DB preserves the established Azure Cosmos DB product casing."
+model ResourceCosmosDBProtectionSetting
+  extends ResourceBaseProtectionSolutionSetting {
+  @doc("A setting that indicates Azure Cosmos DB protection.")
+  protectionSolutionType: ResourceProtectionSolutionType.AzureCosmosDB;
+}
+
+@added(Versions.v2026_09_01_preview)
+@doc("Definition of recovery orchestration resource protection using an Azure Storage account.")
+model ResourceStorageAccountProtectionSetting
+  extends ResourceBaseProtectionSolutionSetting {
+  @doc("A setting that indicates Azure Storage account protection.")
+  protectionSolutionType: ResourceProtectionSolutionType.AzureStorageAccount;
+}
+
+@added(Versions.v2026_09_01_preview)
+@doc("Definition of recovery orchestration resource protection using Azure Service Bus.")
+model ResourceServiceBusProtectionSetting
+  extends ResourceBaseProtectionSolutionSetting {
+  @doc("A setting that indicates Azure Service Bus protection.")
+  protectionSolutionType: ResourceProtectionSolutionType.AzureServiceBus;
+}
+
+@added(Versions.v2026_09_01_preview)
+@doc("Definition of recovery orchestration resource protection using Azure NetApp Files.")
+model ResourceNetAppFilesProtectionSetting
+  extends ResourceBaseProtectionSolutionSetting {
+  @doc("A setting that indicates Azure NetApp Files protection.")
+  protectionSolutionType: ResourceProtectionSolutionType.AzureNetAppFiles;
+}
+
 @doc("Definition of recovery orchestration resource native protection solution setting with recovery orchestration plan.")
 model ResourceNativeProtectionSolutionSetting
   extends ResourceBaseProtectionSolutionSetting {

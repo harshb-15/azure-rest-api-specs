@@ -25,9 +25,6 @@ enum ResourceInclusionDisabledReason {
 
   @doc("The resource uses active-active protection.")
   ResourceActiveActiveProtection,
-
-  @doc("The resource uses platform-managed protection.")
-  PlatformManagedProtection,
 }
 
 // Define the main model

@@ -95,11 +95,11 @@
               "protectionStatus": "Protected",
               "inclusionState": "NotIncluded",
               "inclusionDisabledReasons": [
-                "PlatformManagedProtection"
+                "ResourceHighlyAvailable"
               ],
               "needsAttention": true,
               "attentionReasons": [
-                "PlatformManagedProtection"
+                "ResourceHighlyAvailable"
               ],
               "recoveryGroupId": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
               "associatedIdentity": {
@@ -107,8 +107,8 @@
                 "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
               },
               "errorDetails": {
-                "code": "PlatformManagedProtection",
-                "message": "The storage account uses platform-managed protection.",
+                "code": "ResourceHighlyAvailable",
+                "message": "The storage account is highly available and does not require recovery-plan inclusion.",
                 "target": "resourceId",
                 "details": [],
                 "additionalInfo": [
