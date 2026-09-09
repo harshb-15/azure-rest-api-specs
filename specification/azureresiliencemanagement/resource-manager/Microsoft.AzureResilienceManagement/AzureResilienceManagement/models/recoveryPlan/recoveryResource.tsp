@@ -18,13 +18,16 @@ namespace Microsoft.AzureResilienceManagement;
 
 @added(Versions.v2026_09_01_preview)
 @doc("Reason why a recovery resource cannot be included in a recovery plan.")
-#suppress "@azure-tools/typespec-azure-core/no-enum" "The service contract defines a closed set of inclusion-disabled reasons."
-enum ResourceInclusionDisabledReason {
+union ResourceInclusionDisabledReason {
+  @added(Versions.v2026_09_01_preview)
   @doc("The resource is highly available and does not require recovery-plan inclusion.")
-  ResourceHighlyAvailable,
+  ResourceHighlyAvailable: "ResourceHighlyAvailable",
 
+  @added(Versions.v2026_09_01_preview)
   @doc("The resource uses active-active protection.")
-  ResourceActiveActiveProtection,
+  ResourceActiveActiveProtection: "ResourceActiveActiveProtection",
+
+  string,
 }
 
 // Define the main model

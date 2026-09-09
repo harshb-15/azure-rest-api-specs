@@ -9911,7 +9911,7 @@
       ],
       "x-ms-enum": {
         "name": "ReplicationMode",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "None",
@@ -10370,7 +10370,7 @@
       ],
       "x-ms-enum": {
         "name": "ResourceInclusionDisabledReason",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "ResourceHighlyAvailable",

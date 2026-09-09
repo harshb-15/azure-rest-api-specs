@@ -60,16 +60,20 @@ union TestFailoverState {
 
 @added(Versions.v2026_09_01_preview)
 @doc("Replication mode configured for a protected resource.")
-#suppress "@azure-tools/typespec-azure-core/no-enum" "The service contract defines a closed set of replication modes."
-enum ReplicationMode {
+union ReplicationMode {
+  @added(Versions.v2026_09_01_preview)
   @doc("No replication mode is configured for the protected resource.")
-  None,
+  None: "None",
 
+  @added(Versions.v2026_09_01_preview)
   @doc("The resource is active in multiple locations at the same time.")
-  ActiveActive,
+  ActiveActive: "ActiveActive",
 
+  @added(Versions.v2026_09_01_preview)
   @doc("The resource has one active location and one or more passive recovery locations.")
-  ActivePassive,
+  ActivePassive: "ActivePassive",
+
+  string,
 }
 
 @doc("Definition of recovery resource resource protection solution settings.")
@@ -144,9 +148,11 @@ model ResourceBaseProtectionSolutionSetting {
 @doc("Definition of recovery orchestration resource protection using an Azure Resource Manager template.")
 model ResourceAzureTemplateProtectionSetting
   extends ResourceBaseProtectionSolutionSetting {
+  @added(Versions.v2026_09_01_preview)
   @doc("A setting that indicates Azure Resource Manager template-based recovery.")
   protectionSolutionType: "AzureTemplate";
 
+  @added(Versions.v2026_09_01_preview)
   @doc("The Azure resource ID of the Template Spec version to deploy.")
   templateSpecVersionId: armResourceIdentifier<[
     {
@@ -154,6 +160,7 @@ model ResourceAzureTemplateProtectionSetting
     }
   ]>;
 
+  @added(Versions.v2026_09_01_preview)
   @doc("""
     The Azure Resource Manager scope at which the recovery template is deployed. Must be the
     subscription containing the protected resource, or a resource group within it; deployments
@@ -170,6 +177,7 @@ model ResourceAzureTemplateProtectionSetting
     }
   ]>;
 
+  @added(Versions.v2026_09_01_preview)
   @doc("The location used to store deployment metadata. Required when deploymentScope is a subscription.")
   deploymentLocation?: azureLocation;
 }
@@ -179,6 +187,7 @@ model ResourceAzureTemplateProtectionSetting
 #suppress "@azure-tools/typespec-azure-core/casing-style" "DB preserves the established Azure Cosmos DB product casing."
 model ResourceCosmosDBProtectionSetting
   extends ResourceBaseProtectionSolutionSetting {
+  @added(Versions.v2026_09_01_preview)
   @doc("A setting that indicates Azure Cosmos DB protection.")
   protectionSolutionType: ResourceProtectionSolutionType.AzureCosmosDB;
 }
@@ -187,6 +196,7 @@ model ResourceCosmosDBProtectionSetting
 @doc("Definition of recovery orchestration resource protection using an Azure Storage account.")
 model ResourceStorageAccountProtectionSetting
   extends ResourceBaseProtectionSolutionSetting {
+  @added(Versions.v2026_09_01_preview)
   @doc("A setting that indicates Azure Storage account protection.")
   protectionSolutionType: ResourceProtectionSolutionType.AzureStorageAccount;
 }
@@ -195,6 +205,7 @@ model ResourceStorageAccountProtectionSetting
 @doc("Definition of recovery orchestration resource protection using Azure Service Bus.")
 model ResourceServiceBusProtectionSetting
   extends ResourceBaseProtectionSolutionSetting {
+  @added(Versions.v2026_09_01_preview)
   @doc("A setting that indicates Azure Service Bus protection.")
   protectionSolutionType: ResourceProtectionSolutionType.AzureServiceBus;
 }
@@ -203,6 +214,7 @@ model ResourceServiceBusProtectionSetting
 @doc("Definition of recovery orchestration resource protection using Azure NetApp Files.")
 model ResourceNetAppFilesProtectionSetting
   extends ResourceBaseProtectionSolutionSetting {
+  @added(Versions.v2026_09_01_preview)
   @doc("A setting that indicates Azure NetApp Files protection.")
   protectionSolutionType: ResourceProtectionSolutionType.AzureNetAppFiles;
 }
