@@ -202,6 +202,7 @@ model ZonalDrill is ProxyResource<ZonalDrillProperties> {
 }
 
 @doc("Definition of Regional Drill properties.")
+@removed(Versions.v2026_10_01)
 model RegionalDrillProperties extends DrillProperties {
   @doc("The discriminator for the Drill object hierarchy.")
   @removed(Versions.v2026_08_31_preview)
@@ -219,6 +220,7 @@ model RegionalDrillProperties extends DrillProperties {
  */
 @tenantResource
 @doc("Regional Drill resource")
+@removed(Versions.v2026_10_01)
 model RegionalDrill is ProxyResource<RegionalDrillProperties> {
   @doc("The name of the Regional Drill")
   @pattern("^[a-zA-Z0-9-]{3,24}$")
@@ -318,9 +320,18 @@ model HealthModelMonitoringProperties {
   identity: AssociatedIdentity;
 
   @doc("Full ARM Id of the discovery rule inside the Azure Health Model. The parent Health Model is derived from this Id; it is the only identifier accepted on the wire.")
+  @removed(Versions.v2026_09_30_preview)
   discoveryRuleId: armResourceIdentifier<[
     {
       type: "Microsoft.CloudHealth/healthmodels/discoveryrules";
+    }
+  ]>;
+
+  @doc("Full ARM Id of the Azure Health Model selected for Drill monitoring.")
+  @added(Versions.v2026_09_30_preview)
+  healthModelId: armResourceIdentifier<[
+    {
+      type: "Microsoft.CloudHealth/healthmodels";
     }
   ]>;
 }
@@ -706,6 +717,11 @@ model AttentionReason {
   @doc("Recovery plan not present.")
   @added(Versions.v2026_09_30_preview)
   recoveryPlan?: ExtensionObjectState;
+
+  @doc("Indicates whether any entity in the selected Azure Health Model references the Drill Service Group through properties.signalGroups.azureResource.azureResourceId.")
+  @added(Versions.v2026_09_30_preview)
+  @visibility(Lifecycle.Read)
+  healthModelAssociatedWithServiceGroup?: ExtensionObjectState;
 }
 
 @doc("Internal System Metadata, to be used by internal components only.")
